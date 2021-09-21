@@ -43,7 +43,7 @@ module.exports = {
 					if(interaction.member.user.avatar !== null) {
 						avatar = "https://cdn.discordapp.com/avatars/" + interaction.member.user.id + "/" + interaction.member.user.avatar + (interaction.member.user.avatar[0] === 'a' ? ".gif" : ".png");
 					}else{
-						avatar = "https://cdn.discordapp.com/embed/avatars/" + (interaction.member.discriminator % 5) + ".png"
+						avatar = "https://cdn.discordapp.com/embed/avatars/" + (parseInt(interaction.member.user.discriminator) % 5) + ".png";
 					}
 					response = new MessageEmbed()
 						.setColor('#00FF00')
