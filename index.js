@@ -1,5 +1,5 @@
 const fs = require('fs');
-const { Client, Intents, Collection, Guild} = require('discord.js');
+const { Client, Intents, Collection} = require('discord.js');
 const { token } = require('./config.json');
 const cp = require("child_process")
 
@@ -18,7 +18,7 @@ for (const file of commandFiles) {
 
 client.once('ready', () => {
     const guilds = client.guilds.cache.map(guild => guild.id)
-    for(guildId in guilds){
+    for(let guildId in guilds){
         cp.exec("node deploy-command.js " + guilds[guildId])
     }
     console.log('Ready!');

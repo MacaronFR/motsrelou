@@ -1,7 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const https = require("https")
-const qr = require("querystring")
-const {MessageEmbed} = require("discord.js");
 
 
 const options = {
@@ -17,7 +15,7 @@ const options = {
 
 module.exports = {
 	data: new SlashCommandBuilder()
-		.setName('get')
+		.setName('getdef')
 		.setDescription('Récuperer un mot aléatoire'),
 	async execute(interaction) {
 		const req = https.request(options, (resp) => {
