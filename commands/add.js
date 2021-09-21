@@ -39,10 +39,16 @@ module.exports = {
 			resp.on("end", () => {
 				let response;
 				if(JSON.parse(data).message === "ajout OK") {
+					let avatar;
+					if(interaction.member.user.avatar !== null) {
+						avatar = "https://cdn.discordapp.com/avatars/" + interaction.member.user.id + "/" + interaction.member.user.avatar + (interaction.member.user.avatar[0] === 'a' ? ".gif" : ".png");
+					}else{
+						avatar = "https://cdn.discordapp.com/embed/avatars/" + (interaction.member.discriminator % 5) + ".png"
+					}
 					response = new MessageEmbed()
 						.setColor('#00FF00')
 						.setTitle('Mot Ajouté')
-						.setThumbnail('https://motsrelou.macaron-dev.fr/asset/logo.png')
+						.setThumbnail(avatar)
 						.addField(mot, def)
 						.setTimestamp()
 						.setFooter('Macaron Bot Mot Relou', 'https://motsrelou.macaron-dev.fr/asset/logo.png');
