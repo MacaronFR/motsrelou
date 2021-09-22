@@ -47,8 +47,9 @@ module.exports = {
 					}
 					response = new MessageEmbed()
 						.setColor('#00FF00')
+						.setAuthor(interaction.member.user.username, avatar)
 						.setTitle('Mot Ajouté')
-						.setThumbnail(avatar)
+						.setThumbnail("https://motsrelou.macaron-dev.fr/asset/logo.png")
 						.addField(mot, def)
 						.setTimestamp()
 						.setFooter('Macaron Bot Mot Relou', 'https://motsrelou.macaron-dev.fr/asset/logo.png');
