@@ -16,6 +16,17 @@ module.exports = {
 			method: "GET"
 		}
 		const mot = interaction.options.getString('mot')
+		if(mot.length < 3){
+			interaction.reply({embeds: [
+				new MessageEmbed()
+					.setColor("#ff6200")
+					.setTitle("Recherche trop courte")
+					.setDescription("La recherche \`" + mot + "\` est trop courte")
+					.setTimestamp()
+					.setFooter('Macaron Bot Mot Relou', 'https://motsrelou.macaron-dev.fr/asset/logo.png')
+				]})
+			return;
+		}
 		options.path += mot;
 		const req = https.request(options, (resp) => {
 			let data = "";
