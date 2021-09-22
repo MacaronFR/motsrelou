@@ -24,20 +24,21 @@ module.exports = {
 			})
 			resp.on("end", () => {
 				let response;
-				try{
-					let mot = JSON.parse(data).mot;
-					let def = JSON.parse(data).def;
-					if (def === ""){
-						def = "Pas de définition";
-					}
+				let res = JSON.parse(data);
+				if(res.mots !== undefined){
 					response = new MessageEmbed()
 						.setColor('#00ff00')
 						.setTitle(mot)
 						.setThumbnail('https://motsrelou.macaron-dev.fr/asset/logo.png')
-						.addField(mot, def)
 						.setTimestamp()
 						.setFooter('Macaron Bot Mot Relou', 'https://motsrelou.macaron-dev.fr/asset/logo.png');
-				}catch (e){
+					for(let i = 0; i < res.mots.length; ++i) {
+						if (res.mots[i].def === "") {
+							res.mots[i].def = "Pas de définition";
+						}
+						response.addField(res.mots[i].mot, res.mots[i].def);
+					}
+				}else{
 					response = new MessageEmbed()
 						.setColor('#FF0000')
 						.setTitle("Erreur")
