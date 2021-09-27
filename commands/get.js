@@ -3,19 +3,20 @@ const https = require("https")
 const {MessageEmbed} = require("discord.js");
 
 
-const options = {
-	hostname: 'motsrelou.macaron-dev.fr',
-	port: 443,
-	path: '/',
-	method: "GET"
-}
-
-
 module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('get')
-		.setDescription('Récuperer un mot aléatoire'),
+		.setDescription('Rechercher un mot exact')
+		.addStringOption(option => option.setName('mot').setRequired(true).setDescription("Le mot à chercher")),
 	async execute(interaction) {
+		const options = {
+			hostname: 'motsrelou.macaron-dev.fr',
+			port: 443,
+			path: '/get?mot=',
+			method: "GET"
+		}
+		const mot = interaction.options.getString('mot')
+		options.path += mot;
 		const req = https.request(options, (resp) => {
 			let data = "";
 			resp.on("data", (chunk) => {
@@ -23,25 +24,36 @@ module.exports = {
 			})
 			resp.on("end", () => {
 				let response;
-				try{
-					let mot = JSON.parse(data).mot;
-					let def = JSON.parse(data).def;
-					if (def === ""){
-						def = "Pas de définition";
+				try {
+					let res = JSON.parse(data);
+					if (res.mot !== undefined) {
+						response = new MessageEmbed()
+							.setColor('#00ff00')
+							.setTitle(mot)
+							.setThumbnail('https://motsrelou.macaron-dev.fr/asset/logo.png')
+							.setTimestamp()
+							.setFooter('Macaron Bot Mot Relou', 'https://motsrelou.macaron-dev.fr/asset/logo.png');
+						if (res.def === "") {
+							res.def = "Pas de définition";
+						}
+						response.addField(res.mot, res.def);
+					} else {
+						response = new MessageEmbed()
+							.setColor('#FF0000')
+							.setTitle("Erreur")
+							.setThumbnail('https://motsrelou.macaron-dev.fr/asset/logo.png')
+							.addField("Erreur", "Mot non trouvé. Désolé")
+							.setTimestamp()
+							.setFooter('Macaron Bot Mot Relou', 'https://motsrelou.macaron-dev.fr/asset/logo.png');
 					}
-					response = new MessageEmbed()
-						.setColor('#00ff00')
-						.setTitle(mot)
-						.setThumbnail('https://motsrelou.macaron-dev.fr/asset/logo.png')
-						.addField(mot, def)
-						.setTimestamp()
-						.setFooter('Macaron Bot Mot Relou', 'https://motsrelou.macaron-dev.fr/asset/logo.png');
 				}catch (e){
+					console.log(e)
+					console.log(data);
 					response = new MessageEmbed()
 						.setColor('#FF0000')
 						.setTitle("Erreur")
 						.setThumbnail('https://motsrelou.macaron-dev.fr/asset/logo.png')
-						.addField("Erreur", "Pendant la récupération. Désolé")
+						.addField("Erreur", e.message)
 						.setTimestamp()
 						.setFooter('Macaron Bot Mot Relou', 'https://motsrelou.macaron-dev.fr/asset/logo.png');
 				}
