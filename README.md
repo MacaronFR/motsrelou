@@ -8,8 +8,12 @@ Petit projet de bot discord afin de pouvoir interagir avec l'API de mots relou d
 
 ## /get
 
-> La commance get permet de récupérer un mot au hasard parmis tout ceux enregistré
+> La commande `/get` permet de récuperer un mot avec son ortographe exacte (pas une recherche)
+
+## /random
+
+> La commance `/random` permet de récupérer un mot au hasard parmis tout ceux enregistré
 
 ## /search mot:
 
-> La commande search permet de retrouver un mot parmis ceux enregistré
+> La commande `/search` permet de retrouver un mot parmis ceux enregistré
