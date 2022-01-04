@@ -64,7 +64,7 @@ module.exports = {
 						.setColor('#FF0000')
 						.setTitle("Erreur")
 						.setThumbnail('https://motsrelou.macaron-dev.fr/asset/logo.png')
-						.addField("Erreur", e.getString())
+						.addField("Erreur", e.message)
 						.setTimestamp()
 						.setFooter('Macaron Bot Mot Relou', 'https://motsrelou.macaron-dev.fr/asset/logo.png');
 				}
