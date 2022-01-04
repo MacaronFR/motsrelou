@@ -2,6 +2,7 @@ const fs = require('fs');
 const { Client, Intents, Collection} = require('discord.js');
 const { token } = require('./config.json');
 const cp = require("child_process")
+const p = require("process")
 
 const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
 
@@ -22,6 +23,7 @@ client.once('ready', () => {
         cp.exec("node deploy-command.js " + guilds[guildId])
     }
     console.log('Ready!');
+    console.log("PID: " + p.pid);
 });
 
 client.on('interactionCreate', async interaction => {
