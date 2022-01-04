@@ -41,7 +41,7 @@ module.exports = {
 				if(JSON.parse(data).message === "ajout OK") {
 					let avatar;
 					if(interaction.member.user.avatar !== null) {
-						avatar = "https://cdn.discordapp.com/avatars/" + interaction.member.user.id + "/" + interaction.member.user.avatar + (interaction.member.user.avatar[0] === 'a' ? ".gif" : ".png");
+						avatar = "https://cdn.discordapp.com/avatars/" + interaction.member.user.id + "/" + interaction.member.user.avatar + (interaction.member.user.avatar.startsWith("a_") ? ".gif" : ".png");
 					}else{
 						avatar = "https://cdn.discordapp.com/embed/avatars/" + (parseInt(interaction.member.user.discriminator) % 5) + ".png";
 					}
