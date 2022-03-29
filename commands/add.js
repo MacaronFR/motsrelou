@@ -38,7 +38,7 @@ module.exports = {
 			})
 			resp.on("end", () => {
 				let response;
-				if(JSON.parse(data).message === "ajout OK") {
+				if(JSON.parse(data).message === "Ajout OK" || JSON.parse(data).message === "Ajout  def OK") {
 					let avatar;
 					if(interaction.member.user.avatar !== null) {
 						avatar = "https://cdn.discordapp.com/avatars/" + interaction.member.user.id + "/" + interaction.member.user.avatar + (interaction.member.user.avatar.startsWith("a_") ? ".gif" : ".png");
