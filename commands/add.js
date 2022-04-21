@@ -47,12 +47,12 @@ module.exports = {
 					}
 					response = new MessageEmbed()
 						.setColor('#00FF00')
-						.setAuthor(interaction.member.user.username, avatar)
+						.setAuthor({name: interaction.member.user.username, iconURL: avatar})
 						.setTitle('Mot Ajouté')
 						.setThumbnail("https://motsrelou.macaron-dev.fr/asset/logo.png")
 						.addField(mot, def)
 						.setTimestamp()
-						.setFooter('Macaron Bot Mot Relou', 'https://motsrelou.macaron-dev.fr/asset/logo.png');
+						.setFooter({text: 'Macaron Bot Mot Relou', iconURL: 'https://motsrelou.macaron-dev.fr/asset/logo.png'});
 				}else{
 					response = new MessageEmbed()
 						.setColor('#FF0000')
@@ -60,7 +60,7 @@ module.exports = {
 						.setThumbnail('https://motsrelou.macaron-dev.fr/asset/logo.png')
 						.addField(mot, def)
 						.setTimestamp()
-						.setFooter('Macaron Bot Mot Relou', 'https://motsrelou.macaron-dev.fr/asset/logo.png');
+						.setFooter({text: 'Macaron Bot Mot Relou', iconURL: 'https://motsrelou.macaron-dev.fr/asset/logo.png'});
 				}
 				interaction.reply({embeds:[response]});
 			})

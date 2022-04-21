@@ -51,7 +51,7 @@ module.exports = {
 						.setThumbnail('https://motsrelou.macaron-dev.fr/asset/logo.png')
 						.addField("Mot introuvable", mot)
 						.setTimestamp()
-						.setFooter('Macaron Bot Mot Relou', 'https://motsrelou.macaron-dev.fr/asset/logo.png');
+						.setFooter({text: 'Macaron Bot Mot Relou', iconURL: 'https://motsrelou.macaron-dev.fr/asset/logo.png'});
 					interaction.reply({embeds: [response]})
 				}else{
 					options.path += mot
@@ -70,7 +70,7 @@ module.exports = {
 								.setThumbnail('https://motsrelou.macaron-dev.fr/asset/logo.png')
 								.addField(mot, def)
 								.setTimestamp()
-								.setFooter('Macaron Bot Mot Relou', 'https://motsrelou.macaron-dev.fr/asset/logo.png');
+								.setFooter({text: 'Macaron Bot Mot Relou', iconURL: 'https://motsrelou.macaron-dev.fr/asset/logo.png'});
 							interaction.reply({embeds: [response]});
 						})
 					})

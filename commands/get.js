@@ -32,7 +32,7 @@ module.exports = {
 							.setTitle(mot)
 							.setThumbnail('https://motsrelou.macaron-dev.fr/asset/logo.png')
 							.setTimestamp()
-							.setFooter('Macaron Bot Mot Relou', 'https://motsrelou.macaron-dev.fr/asset/logo.png');
+							.setFooter({text: 'Macaron Bot Mot Relou', iconURL: 'https://motsrelou.macaron-dev.fr/asset/logo.png'});
 						if (res.def === "") {
 							res.def = "Pas de définition";
 						}
@@ -44,7 +44,7 @@ module.exports = {
 							.setThumbnail('https://motsrelou.macaron-dev.fr/asset/logo.png')
 							.addField("Erreur", "Mot non trouvé. Désolé")
 							.setTimestamp()
-							.setFooter('Macaron Bot Mot Relou', 'https://motsrelou.macaron-dev.fr/asset/logo.png');
+							.setFooter({text: 'Macaron Bot Mot Relou', iconURL: 'https://motsrelou.macaron-dev.fr/asset/logo.png'});
 					}
 				}catch (e){
 					console.log(e)
@@ -55,7 +55,7 @@ module.exports = {
 						.setThumbnail('https://motsrelou.macaron-dev.fr/asset/logo.png')
 						.addField("Erreur", e.message)
 						.setTimestamp()
-						.setFooter('Macaron Bot Mot Relou', 'https://motsrelou.macaron-dev.fr/asset/logo.png');
+						.setFooter({text: 'Macaron Bot Mot Relou', iconURL: 'https://motsrelou.macaron-dev.fr/asset/logo.png'});
 				}
 				interaction.reply({embeds:[response]});
 			})

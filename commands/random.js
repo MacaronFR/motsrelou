@@ -35,7 +35,7 @@ module.exports = {
 						.setThumbnail('https://motsrelou.macaron-dev.fr/asset/logo.png')
 						.addField(mot, def)
 						.setTimestamp()
-						.setFooter('Macaron Bot Mot Relou', 'https://motsrelou.macaron-dev.fr/asset/logo.png');
+						.setFooter({text: 'Macaron Bot Mot Relou', iconURL: 'https://motsrelou.macaron-dev.fr/asset/logo.png'});
 				}catch (e){
 					response = new MessageEmbed()
 						.setColor('#FF0000')
@@ -43,7 +43,7 @@ module.exports = {
 						.setThumbnail('https://motsrelou.macaron-dev.fr/asset/logo.png')
 						.addField("Erreur", "Pendant la récupération. Désolé")
 						.setTimestamp()
-						.setFooter('Macaron Bot Mot Relou', 'https://motsrelou.macaron-dev.fr/asset/logo.png');
+						.setFooter({text: 'Macaron Bot Mot Relou', iconURL: 'https://motsrelou.macaron-dev.fr/asset/logo.png'});
 				}
 				interaction.reply({embeds:[response]});
 			})
