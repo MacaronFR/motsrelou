@@ -39,10 +39,10 @@ module.exports = {
 						response.addField(res.mot, res.def);
 					} else {
 						response = new MessageEmbed()
-							.setColor('#FF0000')
-							.setTitle("Erreur")
+							.setColor('#ff6200')
+							.setTitle(mot)
 							.setThumbnail('https://motsrelou.macaron-dev.fr/asset/logo.png')
-							.addField("Erreur", "Mot non trouvé. Désolé")
+							.addField("Non Trouvé", "Mot non présent dans la base. Désolé")
 							.setTimestamp()
 							.setFooter({text: 'Macaron Bot Mot Relou', iconURL: 'https://motsrelou.macaron-dev.fr/asset/logo.png'});
 					}
