@@ -55,7 +55,7 @@ module.exports = {
 							.setColor('#ff6200')
 							.setTitle(mot)
 							.setThumbnail('https://motsrelou.macaron-dev.fr/asset/logo.png')
-							.addField("Non trouvé", "Mot non présent dans la base. Désolé")
+							.addField("Non trouvé", "Désolé, je n'ai pas trouvé le mot que vous cherchez dans mon dictionnaire. Désolé")
 							.setTimestamp()
 							.setFooter({text: 'Macaron Bot Mot Relou', iconURL: 'https://motsrelou.macaron-dev.fr/asset/logo.png'});
 					}

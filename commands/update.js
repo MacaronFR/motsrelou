@@ -4,25 +4,6 @@ const qr = require("querystring")
 const {MessageEmbed} = require("discord.js");
 
 
-const options = {
-	hostname: 'motsrelou.macaron-dev.fr',
-	port: 443,
-	path: '/update?mot=',
-	method: "POST",
-	headers: {
-		'Content-Type': 'application/x-www-form-urlencoded',
-		'Content-Length': 0
-	}
-}
-
-const get = {
-	hostname: 'motsrelou.macaron-dev.fr',
-	port: 443,
-	path: '/get?mot=',
-	method: "GET"
-}
-
-
 module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('update')
@@ -36,7 +17,14 @@ module.exports = {
 			interaction.reply("Erreur: un mot et une définition doivent être fournit");
 			return;
 		}
+		const get = {
+			hostname: 'motsrelou.macaron-dev.fr',
+			port: 443,
+			path: '/get?mot=',
+			method: "GET"
+		}
 		get.path += mot;
+		console.log(mot);
 		const reqGet = https.request(get, (resp) => {
 			let data = "";
 			resp.on("data", (chunk) => {
@@ -44,16 +32,27 @@ module.exports = {
 			})
 			resp.on("end", () => {
 				let res = JSON.parse(data);
+				console.log(res, get.path);
 				if(res.mot === undefined){
 					let response = new MessageEmbed()
 						.setColor('#ff8000')
-						.setTitle("Inconnu")
+						.setTitle("Mont introuvable")
 						.setThumbnail('https://motsrelou.macaron-dev.fr/asset/logo.png')
-						.addField("Mot introuvable", mot)
+						.addField(mot, def)
 						.setTimestamp()
 						.setFooter({text: 'Macaron Bot Mot Relou', iconURL: 'https://motsrelou.macaron-dev.fr/asset/logo.png'});
 					interaction.reply({embeds: [response]})
 				}else{
+					const options = {
+						hostname: 'motsrelou.macaron-dev.fr',
+						port: 443,
+						path: '/update?mot=',
+						method: "POST",
+						headers: {
+							'Content-Type': 'application/x-www-form-urlencoded',
+							'Content-Length': 0
+						}
+					}
 					options.path += mot
 					const postData = qr.stringify({"def": def});
 					options.headers["Content-Length"] = postData.length;
