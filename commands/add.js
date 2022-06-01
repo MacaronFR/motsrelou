@@ -1,6 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const https = require("https")
-const qr = require("querystring")
 const {MessageEmbed} = require("discord.js");
 
 
@@ -38,9 +37,7 @@ module.exports = {
 				data += chunk
 			})
 			resp.on("end", () => {
-				console.log(resp)
 				let response;
-				console.log(data);
 				let res = JSON.parse(data);
 				if(res.mot) {
 					let avatar;
