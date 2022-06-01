@@ -4,9 +4,9 @@ const {MessageEmbed} = require("discord.js");
 
 
 const options = {
-	hostname: 'motsrelou.macaron-dev.fr',
+	hostname: 'api.motrelou.imacaron.fr',
 	port: 443,
-	path: '/random',
+	path: '/mot/random',
 	method: "GET"
 }
 
@@ -24,18 +24,18 @@ module.exports = {
 			resp.on("end", () => {
 				let response;
 				try{
-					let mot = JSON.parse(data).mot;
-					let def = JSON.parse(data).def;
-					if (def === ""){
-						def = "Pas de définition";
-					}
+					let mot = JSON.parse(data);
 					response = new MessageEmbed()
 						.setColor('#00ff00')
-						.setTitle(mot)
+						.setTitle(mot.mot)
 						.setThumbnail('https://motsrelou.macaron-dev.fr/asset/logo.png')
-						.addField(mot, def)
 						.setTimestamp()
 						.setFooter({text: 'Macaron Bot Mot Relou', iconURL: 'https://motsrelou.macaron-dev.fr/asset/logo.png'});
+					if (mot.definitions.length === 0){
+						response.addField(mot, def)
+					}else{
+						response.addField(mot.mot, mot.definitions[0].definition)
+					}
 				}catch (e){
 					response = new MessageEmbed()
 						.setColor('#FF0000')

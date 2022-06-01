@@ -1,6 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const https = require("https")
-const qr = require("querystring")
 const {MessageEmbed} = require("discord.js");
 
 
@@ -18,13 +17,12 @@ module.exports = {
 			return;
 		}
 		const get = {
-			hostname: 'motsrelou.macaron-dev.fr',
+			hostname: 'api.motrelou.imacaron.fr',
 			port: 443,
-			path: '/get?mot=',
+			path: '/mot/',
 			method: "GET"
 		}
 		get.path += mot;
-		console.log(mot);
 		const reqGet = https.request(get, (resp) => {
 			let data = "";
 			resp.on("data", (chunk) => {
@@ -32,11 +30,10 @@ module.exports = {
 			})
 			resp.on("end", () => {
 				let res = JSON.parse(data);
-				console.log(res, get.path);
 				if(res.mot === undefined){
 					let response = new MessageEmbed()
 						.setColor('#ff8000')
-						.setTitle("Mont introuvable")
+						.setTitle("Mot introuvable")
 						.setThumbnail('https://motsrelou.macaron-dev.fr/asset/logo.png')
 						.addField(mot, def)
 						.setTimestamp()
@@ -44,19 +41,17 @@ module.exports = {
 					interaction.reply({embeds: [response]})
 				}else{
 					const options = {
-						hostname: 'motsrelou.macaron-dev.fr',
+						hostname: 'api.motrelou.imacaron.fr',
 						port: 443,
-						path: '/update?mot=',
-						method: "POST",
+						path: '/mot/' + mot + "/definition/1",
+						method: "PUT",
 						headers: {
-							'Content-Type': 'application/x-www-form-urlencoded',
+							'Content-Type': 'application/json',
 							'Content-Length': 0
 						}
 					}
-					options.path += mot
-					const postData = qr.stringify({"def": def});
+					const postData = JSON.stringify({"definition": def});
 					options.headers["Content-Length"] = postData.length;
-					console.log(options.path);
 					const reqPost = https.request(options, (resp) => {
 						let data = "";
 						resp.on("data", (chunk) => {

@@ -10,9 +10,9 @@ module.exports = {
 		.addStringOption(option => option.setName('mot').setRequired(true).setDescription("Le mot à chercher")),
 	async execute(interaction) {
 		const options = {
-			hostname: 'motsrelou.macaron-dev.fr',
+			hostname: 'api.motrelou.imacaron.fr',
 			port: 443,
-			path: '/get?mot=',
+			path: '/mot/',
 			method: "GET"
 		}
 		const mot = interaction.options.getString('mot')
@@ -33,10 +33,11 @@ module.exports = {
 							.setThumbnail('https://motsrelou.macaron-dev.fr/asset/logo.png')
 							.setTimestamp()
 							.setFooter({text: 'Macaron Bot Mot Relou', iconURL: 'https://motsrelou.macaron-dev.fr/asset/logo.png'});
-						if (res.def === "") {
-							res.def = "Pas de définition";
+						if (res.definitions === []) {
+							response.addField(res.mot, "Pas de définition");
+						}else{
+							response.addField(res.mot, res.definitions[0].definition);
 						}
-						response.addField(res.mot, res.def);
 					} else {
 						response = new MessageEmbed()
 							.setColor('#ff6200')
@@ -47,8 +48,6 @@ module.exports = {
 							.setFooter({text: 'Macaron Bot Mot Relou', iconURL: 'https://motsrelou.macaron-dev.fr/asset/logo.png'});
 					}
 				}catch (e){
-					console.log(e)
-					console.log(data);
 					response = new MessageEmbed()
 						.setColor('#FF0000')
 						.setTitle("Erreur")
