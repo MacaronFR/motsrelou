@@ -5,12 +5,12 @@ const {MessageEmbed} = require("discord.js");
 
 
 const options = {
-	hostname: 'motsrelou.macaron-dev.fr',
+	hostname: 'api.motrelou.imacaron.fr',
 	port: 443,
-	path: '/add',
+	path: '/mot',
 	method: "POST",
 	headers: {
-		'Content-Type': 'application/x-www-form-urlencoded',
+		'Content-Type': 'application/json',
 		'Content-Length': 0
 	}
 }
@@ -25,11 +25,12 @@ module.exports = {
 	async execute(interaction) {
 		const mot = interaction.options.getString('mot')
 		const def = interaction.options.getString('def')
+		const user = interaction.user.id
 		if(mot === null || def === null){
 			interaction.reply("Erreur: un mot et une définition doivent être fournit");
 			return;
 		}
-		const postData = qr.stringify({"mot": mot, "def": def})
+		const postData = JSON.stringify({"mot": mot, "definition": def, "createur": user})
 		options.headers["Content-Length"] = postData.length
 		const req = https.request(options, (resp) => {
 			let data = "";
@@ -37,8 +38,11 @@ module.exports = {
 				data += chunk
 			})
 			resp.on("end", () => {
+				console.log(resp)
 				let response;
-				if(JSON.parse(data).message === "Ajout OK" || JSON.parse(data).message === "Ajout def OK") {
+				console.log(data);
+				let res = JSON.parse(data);
+				if(res.mot) {
 					let avatar;
 					if(interaction.member.user.avatar !== null) {
 						avatar = "https://cdn.discordapp.com/avatars/" + interaction.member.user.id + "/" + interaction.member.user.avatar + (interaction.member.user.avatar.startsWith("a_") ? ".gif" : ".png");
