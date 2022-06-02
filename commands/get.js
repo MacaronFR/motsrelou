@@ -10,7 +10,7 @@ module.exports = {
 		.addStringOption(option => option.setName('mot').setRequired(true).setDescription("Le mot à chercher")),
 	async execute(interaction) {
 		const options = {
-			hostname: 'api.motrelou.imacaron.fr',
+			hostname: 'api.motrelou.fr',
 			port: 443,
 			path: '/mot/',
 			method: "GET"

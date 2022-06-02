@@ -17,7 +17,7 @@ module.exports = {
 			return;
 		}
 		const get = {
-			hostname: 'api.motrelou.imacaron.fr',
+			hostname: 'api.motrelou.fr',
 			port: 443,
 			path: '/mot/',
 			method: "GET"
@@ -41,7 +41,7 @@ module.exports = {
 					interaction.reply({embeds: [response]})
 				}else{
 					const options = {
-						hostname: 'api.motrelou.imacaron.fr',
+						hostname: 'api.motrelou.fr',
 						port: 443,
 						path: '/mot/' + mot + "/definition/1",
 						method: "PUT",

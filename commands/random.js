@@ -4,7 +4,7 @@ const {MessageEmbed} = require("discord.js");
 
 
 const options = {
-	hostname: 'api.motrelou.imacaron.fr',
+	hostname: 'api.motrelou.fr',
 	port: 443,
 	path: '/mot/random',
 	method: "GET"
